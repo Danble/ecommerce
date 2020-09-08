@@ -2,8 +2,7 @@ from ..models import *
 from . import serializers
 from rest_framework import generics, status
 from rest_framework.response import Response
+from django.http.response import JsonResponse
 
-class PersonView(generics.ListAPIView):
-  queryset = Person.objects.all()
-  serializer_class = serializers.PersonSerializer
-  print(queryset)
+def PersonView(request):
+  return JsonResponse({"message": "hello world!"})
