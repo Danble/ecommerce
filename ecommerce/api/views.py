@@ -1,5 +1,5 @@
-""" from rest_framework.views import APIView
-from rest_framework.response import Response """
+""" from rest_framework.views import APIView """
+from rest_framework.response import Response
 from rest_framework.generics import ListCreateAPIView
 from .serializers import PersonSerializer
 from ..models import Person
@@ -28,15 +28,10 @@ class PersonView(ListCreateAPIView):
   serializer_class = PersonSerializer
   queryset = Person.objects.all()
 
-  """ def perform_create(self, serializer):
-    user1 = User.objects.all()
-    user1 = user1[1]
-    user = {}
-    data = self.request.data
-    print(data)
-    user.update({**data, 'user_id': user1})
-
-    serializer.save(user=user) """
-
   def post(self, request, *args, **kwargs):
-    print("this is a: {}".format(request.data))
+    data = {"name": f'{request.data.get("name")}', "last_name": f'{request.data.get("last_name")}'}
+    user1 = User.objects.all()
+    user1 = user1[3]
+    data.update({'user_id': user1})
+    Person.objects.create(**data)
+    return Response({"message": "Person created!"})
